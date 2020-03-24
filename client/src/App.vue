@@ -1,19 +1,21 @@
 <template>
   <div id="app">
-    <el-container>
-      <el-header style="padding:0;">
-        <el-row type="flex" class="primary-color" justify="end" align="middle" style="height:100%;">
-          <el-col :span="4" >
-            <el-button-group>
-              <el-button class="primary-button default-text" @click="dialogFormVisible=true">登陆</el-button>
-              <el-button class="secondary-button default-text">注册</el-button>
+    <el-container style="height:100%;">
+      <el-header class="primary-color" height="80px" style="padding:0;">
+        <el-row type="flex" justify="space-between" align="middle" style="height:100%;">
+          <el-col :span="2" :offset="1">
+            <a href="/" title="星星音乐">
+              <img src="../public/logo_title_100px.png" title="星星音乐" alt="星星音乐" style="height:60px;opacity:0.8;">
+            </a>
+          </el-col>
+          <el-col :span="3" :pull="1">
+            <el-button-group v-show="!isLogin&&!isRegisting">
+              <el-button @click="dialogFormVisible=true">登陆</el-button>
+              <el-button>注册</el-button>
             </el-button-group>
           </el-col>
         </el-row>
-      </el-header>
-      <el-main style="height:calc(100%-120px);">
-        Main
-        <el-dialog title="收货地址" :visible.sync="dialogFormVisible" width="25%">
+        <el-dialog title="收货地址" :visible.sync="dialogFormVisible" width="400px">
           <el-form :model="form">
             <el-form-item label="活动名称" :label-width="formLabelWidth">
               <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -26,21 +28,26 @@
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
             <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
           </div>
         </el-dialog>
+      </el-header>
+      <el-main style="height:0;flex-grow:1;padding:0;">
+        <div class="main-container">
+          <router-view></router-view>
+        </div>
       </el-main>
-      <el-footer class="secondary-color secondary-text" height="70px" style="padding:0;">
+      <el-footer class="secondary-color" height="70px" style="padding:0;">
         <el-row type="flex" class="row-bg" justify="center" align="middle">
           <el-col :span="4">
             <el-button class="secondary-text" type="text">意见反馈</el-button> |
-            <el-button class="secondary-text" type="text">联系我们</el-button> |
-            <el-button class="secondary-text" type="text">帮助中心</el-button>
+            <el-button class="secondary-text" type="text" style="margin:0;">联系我们</el-button> |
+            <el-button class="secondary-text" type="text" style="margin:0;">帮助中心</el-button>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="center" align="middle">
-          <el-col :span="6">Copyright © 2020, All Rights Reserved</el-col>
+          <el-col :span="6" class="secondary-text" style="line-height:20px;">Copyright © 2020, All Rights Reserved</el-col>
         </el-row>
       </el-footer>
     </el-container>
@@ -53,6 +60,8 @@ export default {
   components: {},
   data () {
     return {
+      isLogin: false,
+      isRegisting: false,
       dialogFormVisible: false,
       formLabelWidth: 100,
       form: {
@@ -70,5 +79,11 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  height: 100%;
+}
+.main-container {
+  overflow-y: auto;
+  height: 100%;
+  padding: 0 10%;
 }
 </style>
