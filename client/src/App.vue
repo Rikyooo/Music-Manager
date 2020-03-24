@@ -33,22 +33,26 @@
           </div>
         </el-dialog>
       </el-header>
-      <el-main style="height:0;flex-grow:1;padding:0;">
+      <el-main>
         <div class="main-container">
           <router-view></router-view>
         </div>
       </el-main>
-      <el-footer class="secondary-color" height="70px" style="padding:0;">
-        <el-row type="flex" class="row-bg" justify="center" align="middle">
-          <el-col :span="4">
-            <el-button class="secondary-text" type="text">意见反馈</el-button> |
-            <el-button class="secondary-text" type="text" style="margin:0;">联系我们</el-button> |
-            <el-button class="secondary-text" type="text" style="margin:0;">帮助中心</el-button>
-          </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="center" align="middle">
-          <el-col :span="6" class="secondary-text" style="line-height:20px;">Copyright © 2020, All Rights Reserved</el-col>
-        </el-row>
+      <el-footer class="secondary-color">
+        <div>
+          <el-row type="flex" class="row-bg" justify="center" align="middle">
+            <el-col :span="4">
+              <el-link :underline="false" >意见反馈</el-link> |
+              <el-link :underline="false" >联系我们</el-link> |
+              <el-link :underline="false" >帮助中心</el-link>
+            </el-col>
+          </el-row>
+        </div>
+        <div>
+          <el-row type="flex" class="row-bg" justify="center" align="middle">
+            <el-col :span="6" class="primary-text" style="line-height:20px;">Copyright © 2020, All Rights Reserved</el-col>
+          </el-row>
+        </div>
       </el-footer>
     </el-container>
   </div>
@@ -81,9 +85,20 @@ export default {
   text-align: center;
   height: 100%;
 }
+.el-main {
+  height: 0;
+  flex-grow: 1;
+  padding: 0;
+}
 .main-container {
   overflow-y: auto;
   height: 100%;
   padding: 0 10%;
+}
+.el-footer {
+  padding:0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
