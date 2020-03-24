@@ -10,26 +10,45 @@
           </el-col>
           <el-col :span="3" :pull="1">
             <el-button-group v-show="!isLogin&&!isRegisting">
-              <el-button @click="dialogFormVisible=true">登陆</el-button>
+              <el-button @click="isLoginFormShow=true">登陆</el-button>
               <el-button>注册</el-button>
             </el-button-group>
           </el-col>
         </el-row>
-        <el-dialog title="收货地址" :visible.sync="dialogFormVisible" width="400px">
-          <el-form :model="form">
-            <el-form-item label="活动名称" :label-width="formLabelWidth">
-              <el-input v-model="form.name" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="活动区域" :label-width="formLabelWidth">
-              <el-select v-model="form.region" placeholder="请选择活动区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
+        <el-dialog :visible.sync="isLoginFormShow" :show-close="false" width="400px" center>
+          <el-tabs v-model="activeTabName" :stretch="true" >
+            <el-tab-pane label="账号密码登陆" name="loginByAccount">
+              <el-form :model="accountForm" :rules="accountFormRules" :status-icon="true" ref="accountForm" id="accountForm">
+                <el-form-item prop="account">
+                  <el-input placeholder="账号" prefix-icon="el-icon-user" v-model="accountForm.account"></el-input>
+                </el-form-item>
+                <el-form-item prop="password">
+                  <el-input placeholder="密码" prefix-icon="el-icon-lock" v-model="accountForm.password"></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="submitForm('accountForm')" style="width:100%;">登录</el-button>
+                </el-form-item>
+                <el-row type="flex" justify="space-between" align="middle" style="height:100%;">
+                  <el-col :span="7">
+                    <el-form-item style="margin-bottom:0px;">
+                      <el-checkbox v-model="isRememberMe">下次自动登录</el-checkbox>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="9.5">
+                    <el-link :underline="false" >立即注册</el-link> |
+                    <el-link :underline="false" >忘记密码？</el-link>
+                  </el-col>
+                </el-row>
+              </el-form>
+            </el-tab-pane>
+            <el-tab-pane label="短信快捷登陆" name="loginBySMS">
+              <el-form :model="SMSForm">
+                duanxinkuaijiedenglu
+              </el-form>
+            </el-tab-pane>
+          </el-tabs>
           <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <!-- <el-button type="primary" @click="isLoginFormShow = false" style="width:100%;">确 定</el-button> -->
           </div>
         </el-dialog>
       </el-header>
@@ -66,12 +85,38 @@ export default {
     return {
       isLogin: false,
       isRegisting: false,
-      dialogFormVisible: false,
-      formLabelWidth: 100,
-      form: {
-        name: 'name',
-        region: 'region'
-      }
+      isLoginFormShow: false,
+      activeTabName: 'loginByAccount',
+      accountForm: {
+        account: '',
+        password: ''
+      },
+      accountFormRules: {
+        account: [
+          { required: true, message: '账号不能为空', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '密码不能为空', trigger: 'blur' },
+          { min: 5, max: 13, message: '长度在 5 到 13 个字符', trigger: 'blur' }
+        ]
+      },
+      SMSForm: {
+        phoneNumber: '',
+        note: ''
+      },
+      isRememberMe: false
+    }
+  },
+  methods: {
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!')
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     }
   }
 }
@@ -96,9 +141,19 @@ export default {
   padding: 0 10%;
 }
 .el-footer {
-  padding:0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.el-dialog__header {
+  padding: 0px!important;
+}
+.el-dialog__body {
+  padding: 20px 0px 10px!important;
+  text-align: center!important;
+}
+#accountForm {
+  padding: 0px 20px;
 }
 </style>
