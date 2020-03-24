@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+.primary-color {
+  background: #7f78d2;
+}
+.secondary-color {
+  background: #481380;
+}
+.primary-button {
+  border-color: transparent;
+  background: #efb1ff;
+}
+.secondary-button {
+  border-color: transparent;
+  background: #ffe2ff;
+}
+.default-text {
+  color: #FFFFFF;
+}
+
+.primary-text {
+  color: #212121;
+}
+.primary-text:hover {
+  color: #212121;
+}
+.secondary-text {
+  color: #757575;
+}
+.divider {
+  border-color: #BDBDBD;
+}
