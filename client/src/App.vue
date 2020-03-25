@@ -11,7 +11,7 @@
           <el-col :span="3" :pull="1">
             <el-button-group v-show="!isLogin&&!isRegisting">
               <el-button @click="isLoginFormShow=true">登陆</el-button>
-              <el-button>注册</el-button>
+              <el-button @click="toRegister()">注册</el-button>
             </el-button-group>
           </el-col>
         </el-row>
@@ -35,7 +35,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="9.5">
-                    <el-link :underline="false" >立即注册</el-link> |
+                    <el-link :underline="false" @click="toRegister()">立即注册</el-link> |
                     <el-link :underline="false" >忘记密码？</el-link>
                   </el-col>
                 </el-row>
@@ -48,7 +48,22 @@
             </el-tab-pane>
           </el-tabs>
           <div slot="footer" class="dialog-footer">
-            <!-- <el-button type="primary" @click="isLoginFormShow = false" style="width:100%;">确 定</el-button> -->
+            <el-row type="flex" justify="center" align="middle" style="margin-bottom:5px;">
+              <el-col class="secondary-text">
+                其他方式登录
+              </el-col>
+            </el-row>
+            <el-row type="flex" justify="space-around" align="middle">
+              <el-col :span="2">
+                <a href="javascript:void(0)"><img src="../public/icon-weixin.png" style="height:38px;"></a>
+              </el-col>
+              <el-col :span="2">
+                <a href="javascript:void(0)"><img src="../public/icon-qq.png" style="height:38px;"></a>
+              </el-col>
+              <el-col :span="2">
+                <a href="javascript:void(0)"><img src="../public/icon-weibo.png" style="height:38px;"></a>
+              </el-col>
+            </el-row>
           </div>
         </el-dialog>
       </el-header>
@@ -117,6 +132,10 @@ export default {
           return false
         }
       })
+    },
+    toRegister () {
+      this.isRegisting = true
+      this.$router.push({ name: 'register' })
     }
   }
 }
@@ -150,7 +169,7 @@ export default {
   padding: 0px!important;
 }
 .el-dialog__body {
-  padding: 20px 0px 10px!important;
+  padding: 20px 0px 0px!important;
   text-align: center!important;
 }
 #accountForm {
